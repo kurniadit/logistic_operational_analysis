@@ -6,7 +6,7 @@ Dataset of delivery task with JSON type
 
 This test will assess your analytical thinking, how you work with data, and transform your findings into insight or something useful.
 
-We have provided a sample of delivery task for 10 days, from this data we'd like to know what insight you can get. Some part of the insight should be related to **machine learning model** and/or **data visualization**. All of your work should be pushed to your own Git repository, including the result of your insight in any formats such as Markdown, HTML, PDF, etc. Please send back the link to your Git repository to us.
+We have provided a sample of delivery task for 10 days, from this data we'd like to know what insight you can get. Some part of the insight should be related to **machine learning model** and **data visualization**. All of your work should be pushed to your own Git repository, including the result of your insight in any formats such as Markdown, HTML, PDF, etc. Please send back the link to your Git repository to us.
 
 You can get the data from `data-sample.json`
 
