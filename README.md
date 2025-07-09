@@ -62,13 +62,22 @@ After removing incomplete records, new features (`taskDuration`, `day`, `hour`, 
 
 * **Task Status (Completion vs. Failure Rate)**: The analysis reveals a high-throughput process, with **90.9%** of all tasks reaching completion. However, this efficiency is undermined by a significant quality issue: **28.3%** of all completed tasks end in failure.
 
+| Task Status | Task Status Label |
+| :---: | :---: |
+| ![Task Status](./figures/task_status.png) | ![Task Status Label](./figures/task_status_label.png) |
+
+
 * **Task Duration**: The process is highly efficient for the vast majority of tasks. The distribution is heavily concentrated at the low end, indicating that a large volume of tasks completes very quickly (likely in under 50 minutes). The distribution is also **strongly right-skewed**, with a long tail, showing that while infrequent, a notable number of outlier tasks take an exceptionally long time to complete (e.g., exceeding 150-200 minutes).
+![Task Duration](./figures/task_duration.png)
 
 * **Task Activity (Day and Hour)**: Task activity is overwhelmingly concentrated in the early morning, specifically between **7 AM and 9 AM**, with the absolute busiest time being **Wednesday at 7 AM**. Most weekdays follow a pattern of high morning activity that sharply drops off, with activity being nearly non-existent after 9 AM. Friday shows a different, lower-volume pattern, and weekend activity is minimal.
+![Task Activity](./figures/task_activity.png)
 
 * **COD Amount**: The distribution of COD amounts is **strongly right-skewed**. The highest frequency of orders falls into the lowest value brackets, indicating that transactions with a large COD amount are very infrequent compared to the typical low-value purchase.
+![COD Amount](./figures/cod_amount.png)
 
 * **Package Weight**: The vast majority of packages are **very lightweight**, with the distribution being **extremely right-skewed**. Heavy packages are rare outliers, suggesting that logistics processes are primarily designed for small items.
+![Weight](./figures/weight.png)
 
 ### 5.3. Modeling
 
@@ -77,18 +86,20 @@ After removing incomplete records, new features (`taskDuration`, `day`, `hour`, 
     * The most influential variables in determining the success of a task were **`taskDuration`** and **`cod.amount`**.
 
 * **Regression (Task Duration Prediction)**:
-    * The best model was **Linear Regression**, achieving a near-perfect **R-squared of 1.0** and an **RMSE of 0**.
-    * The variables that most significantly influenced task duration were **`is_cod`**, **`taskCreatedHour`**, and **`task_status_label`**.
-
+    * The best model was **Random Forest Regressor**, achieving **R-squared of 0.5694** and an **RMSE of 67.5114**.
+    * The variables that most significantly influenced task duration were **`taskCreatedDayNumber`** and **`taskCreatedHour`**
 * **Clustering (Courier Segmentation)**:
+![Elbow Method](./figures/elbow_method.png)
+
     * The analysis identifies four distinct courier performance profiles:
         * **Cluster 3 (Yellow) - The Top Performers**: The ideal group, consistently achieving a very high success rate across all delivery durations.
         * **Cluster 0 (Purple) - The Fast but Inconsistent**: Quick couriers whose performance is unpredictable, with success rates ranging from 0% to 100%.
         * **Cluster 2 (Green) - The Slow & Polarized**: Couriers who take a long time per delivery and whose outcomes are extreme—either complete success or complete failure.
         * **Cluster 1 (Blue) - The Fast & Mediocre**: A unique segment of fast couriers who consistently perform at a mediocre ~50% success rate.
+![Clustering Result](./figures/clustering_result.png)
 
 ---
 
 ## 6. Disclaimer
 
-The modeling results presented in this report are based on an initial analysis and are intended to demonstrate analytical possibilities. The reported performance metrics, particularly the perfect scores in the regression model, may be indicative of data leakage or overfitting and require further validation, cross-validation, and testing on a holdout dataset before being considered for production use. The findings should be treated as preliminary insights that warrant deeper investigation rather than definitive conclusions.
+The modeling results presented in this report are based on an initial analysis and are intended to demonstrate analytical possibilities. The findings should be treated as preliminary insights that warrant deeper investigation rather than definitive conclusions.
